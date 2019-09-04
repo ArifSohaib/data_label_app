@@ -21,9 +21,20 @@ class _TagsHomePageState extends State<TagsHomePage> {
             height: 50.0,
             child: _buildBody(context),
           )),
-          TextField(
-            controller: inputController,
-            cursorColor: Colors.green,
+          Container(
+            decoration: new BoxDecoration(
+              shape: BoxShape.rectangle,
+              border: new Border.all(
+                color: Colors.black,
+                width: 1.0,
+              ),
+            ),
+            child: TextField(
+              controller: inputController,
+              decoration: InputDecoration(
+                hintText: 'enter new tag here',
+              ),
+            ),
           ),
           MaterialButton(
             child: Text("Input new tag"),
@@ -35,16 +46,7 @@ class _TagsHomePageState extends State<TagsHomePage> {
                 });
                 Firestore.instance.collection('image_tags').add(
                     {"name": inputController.text, "count": 0});
-                return showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      // Retrieve the text the that user has entered by using the
-                      // TextEditingController.
-                      content: Text(inputRecord.toString()),
-                    );
-                  },
-                );
+                Navigator.pop(context);
               }
               else{
                 return showDialog(

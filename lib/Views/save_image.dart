@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../main.dart';
-import 'home_material.dart';
+import 'package:data_label/Views/add_new_tag.dart';
 
 class ImageDetails extends StatelessWidget {
   final url;
@@ -30,10 +29,15 @@ class ImageDetails extends StatelessWidget {
             RaisedButton(
               child: Text("Return to main page"),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()));
+                Navigator.pop(context);
               },
             ),
+            RaisedButton(
+              child: Text("Add new tag"),
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>TagsHomePage()));
+              },
+            )
           ],
         ),
       ),
