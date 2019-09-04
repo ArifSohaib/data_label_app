@@ -73,14 +73,15 @@ class _MyHomePageState extends State<MyHomePage>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Teamato Data Label"),
+        //TODO: change name here
+        title: Text("WCC Data Label"),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: <Widget>[
               RaisedButton(
-                child: Text("Camera"),
+                child: Text("Take new photo"),
 
                 onPressed: (){
                   getImage(true);
@@ -88,35 +89,27 @@ class _MyHomePageState extends State<MyHomePage>{
               ),
               SizedBox(height: 10.0,),
               RaisedButton(
-                child: Text("Gallery"),
+                child: Text("Use existing photo"),
                 onPressed: (){
                   getImage(false);
                 },
               ),
               _imageFile == null ? Container(): Image.file(_imageFile, height: 300.0, width: 300.0,),
-              _imageFile == null ? Container(): RaisedButton(
-                child: Text("Upload To Firebase"),
+              _imageFile == null ? Container():
+              _uploaded == false ? RaisedButton(
+                child: Text("Upload image to database"),
                 onPressed: (){
                   uploadImage();
                 },
-              ),
-              _uploaded == false ? Container():RaisedButton(
-                child: Text("Download image"),
-                onPressed: (){
-                  downloadImage();
-                },
-              ),
-              _downloadUrl == null ? Container(): Container(
-                child: RaisedButton(
-                  child: Text("Set Image Tag"),
-                    onPressed: (){
+              ):RaisedButton(
+                  child: Text("Set Image Label"),
+                  onPressed: ()async {
+                    await downloadImage();
                     Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ImageDetails(url: _downloadUrl))
-                  );
-                }),
-              ),
-
+                        context,
+                        MaterialPageRoute(builder: (context) => ImageDetails(url: _downloadUrl))
+                    );
+                  }),
             ],
           ),
         ),
